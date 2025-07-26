@@ -1,0 +1,14 @@
+{
+    "name": "Check Status with No Lock",
+    "request": {
+      "method": "GET",
+      "url": "http://localhost:3000/api/tables/table-123/status",
+      "header": []
+    },
+    "response": {
+      "status": "OK",
+      "code": 200,
+      "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": "{\"isLocked\": false}"
+    }
+  }

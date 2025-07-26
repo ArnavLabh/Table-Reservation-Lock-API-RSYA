@@ -1,0 +1,73 @@
+{
+    "name": "Invalid Input Tests",
+    "requests": [
+      {
+        "description": "Invalid tableId in lock",
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/tables/lock",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": {
+            "mode": "raw",
+            "raw": "{\"tableId\": \"\", \"userId\": \"user-abc\", \"duration\": 600}"
+          }
+        },
+        "response": {
+          "status": "Bad Request",
+          "code": 400,
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\"success\": false, \"message\": \"Missing or invalid required fields: tableId (string), userId (string), duration (number)\"}"
+        }
+      },
+      {
+        "description": "Negative duration in lock",
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/tables/lock",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": {
+            "mode": "raw",
+            "raw": "{\"tableId\": \"table-123\", \"userId\": \"user-abc\", \"duration\": -1}"
+          }
+        },
+        "response": {
+          "status": "Bad Request",
+          "code": 400,
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\"success\": false, \"message\": \"Duration must be a positive number\"}"
+        }
+      },
+      {
+        "description": "Missing userId in unlock",
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/tables/unlock",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": {
+            "mode": "raw",
+            "raw": "{\"tableId\": \"table-123\"}"
+          }
+        },
+        "response": {
+          "status": "Bad Request",
+          "code": 400,
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\"success\": false, \"message\": \"Missing or invalid required fields: tableId (string), userId (string)\"}"
+        }
+      },
+      {
+        "description": "Invalid tableId in status",
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/tables//status",
+          "header": []
+        },
+        "response": {
+          "status": "Bad Request",
+          "code": 400,
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\"success\": false, \"message\": \"Invalid tableId: must be a string\"}"
+        }
+      }
+    ]
+  }

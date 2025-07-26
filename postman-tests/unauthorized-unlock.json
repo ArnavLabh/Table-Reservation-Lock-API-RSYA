@@ -1,0 +1,38 @@
+{
+    "name": "Unauthorized Unlock Attempt",
+    "prerequisite": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/tables/lock",
+      "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mode": "raw",
+        "raw": "{\"tableId\": \"table-123\", \"userId\": \"user-abc\", \"duration\": 600}"
+      }
+    },
+    "request": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/tables/unlock",
+      "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mode": "raw",
+        "raw": "{\"tableId\": \"table-123\", \"userId\": \"user-def\"}"
+      }
+    },
+    "response": {
+      "status": "Forbidden",
+      "code": 403,
+      "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": "{\"success\": false, \"message\": \"Cannot unlock: User ID does not match lock owner\"}"
+    },
+    "followUpRequest": {
+      "method": "GET",
+      "url": "http://localhost:3000/api/tables/table-123/status",
+      "header": [],
+      "response": {
+        "status": "OK",
+        "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": "{\"isLocked\": true, \"expiresAt\": \"2025-07-26T06:51:23.456Z\", \"remainingSeconds\": 590}"
+      }
+    }
+  }

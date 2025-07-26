@@ -1,0 +1,24 @@
+{
+    "name": "Expired Lock Status",
+    "prerequisite": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/tables/lock",
+      "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mode": "raw",
+        "raw": "{\"tableId\": \"table-123\", \"userId\": \"user-abc\", \"duration\": 1}"
+      }
+    },
+    "note": "Wait 2 seconds after lock to ensure expiry",
+    "request": {
+      "method": "GET",
+      "url": "http://localhost:3000/api/tables/table-123/status",
+      "header": []
+    },
+    "response": {
+      "status": "OK",
+      "code": 200,
+      "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": "{\"isLocked\": false}"
+    }
+  }

@@ -1,0 +1,38 @@
+{
+    "name": "Attempt to Lock Already Locked Table",
+    "prerequisite": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/tables/lock",
+      "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mode": "raw",
+        "raw": "{\"tableId\": \"table-123\", \"userId\": \"user-abc\", \"duration\": 600}"
+      }
+    },
+    "request": {
+      "method": "POST",
+      "url": "http://localhost:3000/api/tables/lock",
+      "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mode": "raw",
+        "raw": "{\"tableId\": \"table-123\", \"userId\": \"user-def\", \"duration\": 600}"
+      }
+    },
+    "response": {
+      "status": "Conflict",
+      "code": 409,
+      "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": "{\"success\": false, \"message\": \"Table is currently locked by another user.\"}"
+    },
+    "followUpRequest": {
+      "method": "GET",
+      "url": "http://localhost:3000/api/tables/table-123/status",
+      "header": [],
+      "response": {
+        "status": "OK",
+        "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": "{\"isLocked\": true, \"expiresAt\": \"2025-07-26T06:51:23.456Z\", \"remainingSeconds\": 590}"
+      }
+    }
+  }
