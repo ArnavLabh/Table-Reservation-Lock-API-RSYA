@@ -1,0 +1,71 @@
+{
+  "info": {
+    "name": "Table Reservation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Lock Table",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tableId\": \"table-123\", \"userId\": \"user-abc\", \"duration\": 600}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/tables/lock",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "tables", "lock"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Unlock Table",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tableId\": \"table-123\", \"userId\": \"user-abc\"}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/tables/unlock",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "tables", "unlock"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Check Table Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/tables/table-123/status",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "tables", "table-123", "status"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
